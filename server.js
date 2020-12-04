@@ -2,10 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const http = require('http');
+const app = express();
+var serve = http.createServer(app);
 const socketServer = require('socket.io');
+var io = socketServer(serve);
+
 const MONGO_URI =
   'mongodb://abhilash:Gaytri1812@cluster0-shard-00-00-usggn.mongodb.net:27017,cluster0-shard-00-01-usggn.mongodb.net:27017,cluster0-shard-00-02-usggn.mongodb.net:27017/todolist?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin';
-const app = express();
+
 
 const todoModel = require('./models/todoModel'); //todo model
 
@@ -23,14 +27,11 @@ mongoose
     console.log(`FAILED to connect to mongoose: ${err.message}`);
   });
 
-var serve = http.createServer(app);
-var io = socketServer(serve);
-serve.listen(3005, () => {
-  console.log('Express Server with Socket Running!!!');
-});
+
+serve.listen(8080);
 
 /***************************************************************************************** */
-/* Socket logic starts here																   */
+/*                              Socket logic starts here																   */
 /***************************************************************************************** */
 const connections = [];
 io.on('connection', function (socket) {
