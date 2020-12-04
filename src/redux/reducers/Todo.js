@@ -1,14 +1,10 @@
 import { List } from 'immutable';
 import * as toDoTypes from '../../constants/ActionTypes';
 
-let id = 0;
 const INIT_STATE = { items: List([]) }
-
-
 
 export default (state = INIT_STATE, action) => {
     console.log(state)
-    console.log(action)
     switch (action.type) {
         case toDoTypes.ADD_ITEM:
             return {

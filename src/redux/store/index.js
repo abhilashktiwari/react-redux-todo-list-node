@@ -1,11 +1,11 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import reducers from '../reducers/index';
 import { createBrowserHistory } from 'history';
-import { routerMiddleware } from 'connected-react-router';
+//import { routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 
 const history = createBrowserHistory();
-const routeMiddleware = routerMiddleware(history);
+//const routeMiddleware = routerMiddleware(history);
 //const sagaMiddleware = createSagaMiddleware();
 const envType = (window.appConfig || {}).env || process.env.REACT_APP_ENV || process.env.NODE_ENV;
 
