@@ -18,15 +18,15 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
-  .then(() => console.log('+++ Abhilash connected to mongoose!'))
+  .then(() => console.log('connected to mongoose!'))
   .catch((err) => {
-    console.log(`--- Abhilash FAILED to connect to mongoose: ${err.message}`);
+    console.log(`FAILED to connect to mongoose: ${err.message}`);
   });
 
 var serve = http.createServer(app);
 var io = socketServer(serve);
 serve.listen(3005, () => {
-  console.log('+++ Abhilash Express Server with Socket Running!!!');
+  console.log('Express Server with Socket Running!!!');
 });
 
 /***************************************************************************************** */
@@ -45,15 +45,13 @@ io.on('connection', function (socket) {
     '-_id itemId item completed',
     (err, result) => {
       if (err) {
-        console.log('--- Abhilash GET failed!!');
+        console.log('GET failed!!');
       } else {
         socket.emit('initialList', result);
-        console.log('+++ Abhilash GET worked!!');
+        console.log('GET worked!!');
       }
     }
   );
-  // 		.cursor()
-  // cursor.on('data',(res)=> {socket.emit('initialList',res)})
 
   socket.on('addItem', (addData) => {
     var todoItem = new todoModel({
@@ -79,11 +77,7 @@ io.on('connection', function (socket) {
       if (err) {
         console.log('MARK COMPLETE failed!! ' + err);
       } else {
-        // connections.forEach((currentConnection)=>{
-        // 	currentConnection.emit('itemMarked',markedItem)
-        // })
         io.emit('itemMarked', markedItem);
-
         console.log({ message: 'MARK COMPLETE worked!!' });
       }
     });
